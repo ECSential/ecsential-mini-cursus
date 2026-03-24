@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ECSential Profiel — Jouw ECS-regelprofiel</title>
+<meta name="description" content="Ontdek hoe jouw endocannabinoide systeem functioneert op 9 domeinen. Gratis, wetenschappelijk onderbouwd, geen diagnose vereist.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --gd:#1B4332;--gm:#2D6A4F;--gl:#52B788;--gp:#D8F3DC;--gmt:#B7E4C7;
+  --amb:#B5873A;--ambl:#FFF3CD;--cream:#FAFAF7;--ink:#1A1A18;--muted:#555550;
+  --border:rgba(27,67,50,0.14);--serif:'DM Serif Display',Georgia,serif;
+  --sans:'DM Sans',system-ui,sans-serif;--rad:10px;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--cream);color:var(--ink);font-size:16px;line-height:1.7}
+
+/* NAV */
+.nav{position:sticky;top:0;z-index:100;background:var(--gd);height:56px;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 12px rgba(0,0,0,.2)}
+.nav-brand{font-family:var(--serif);color:#fff;font-size:1.2rem}
+.nav-tag{font-size:.7rem;color:var(--gmt);margin-left:8px;font-style:italic;opacity:.8}
+.lang-wrap{display:flex;gap:4px}
+.lang-btn{background:rgba(255,255,255,.12);border:none;color:#fff;padding:4px 12px;border-radius:20px;font-family:var(--sans);font-size:.75rem;cursor:pointer;transition:background .15s}
+.lang-btn:hover{background:rgba(255,255,255,.22)}
+.lang-btn.active{background:var(--amb)}
+
+/* PROGRESS */
+.prog-bar{position:sticky;top:56px;z-index:90;background:#fff;border-bottom:1px solid var(--border);padding:.75rem 1.5rem}
+.prog-inner{max-width:760px;margin:0 auto}
+.prog-top{display:flex;justify-content:space-between;font-size:.78rem;color:var(--muted);margin-bottom:6px}
+.prog-track{height:5px;background:var(--gp);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:var(--gm);border-radius:3px;transition:width .4s cubic-bezier(.4,0,.2,1)}
+
+/* HERO */
+.hero{background:var(--gd);color:#fff;padding:3rem 1.5rem 2.5rem;text-align:center}
+.hero-badge{display:inline-block;background:var(--amb);color:#fff;font-size:.7rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;padding:4px 14px;border-radius:20px;margin-bottom:1rem}
+.hero h1{font-family:var(--serif);font-size:clamp(1.7rem,5vw,2.8rem);line-height:1.15;margin-bottom:.75rem;max-width:580px;margin-left:auto;margin-right:auto}
+.hero h1 em{font-style:italic;color:var(--gmt)}
+.hero-sub{font-size:.95rem;color:rgba(255,255,255,.72);max-width:460px;margin:0 auto 1.5rem;line-height:1.65}
+.hero-pills{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.pill{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:.78rem;padding:4px 12px;border-radius:20px}
+
+/* MAIN */
+.main{max-width:760px;margin:0 auto;padding:2rem 1.5rem 3rem}
+
+/* DOMAIN HEADER */
+.dom-header{margin-bottom:1.5rem}
+.dom-badge{display:inline-flex;align-items:center;gap:8px;background:var(--gp);color:var(--gd);font-size:.75rem;font-weight:500;padding:5px 12px;border-radius:20px;margin-bottom:.75rem}
+.dom-num{background:var(--gm);color:#fff;width:22px;height:22px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.7rem;font-weight:500;flex-shrink:0}
+.dom-title{font-family:var(--serif);font-size:clamp(1.3rem,3vw,1.7rem);color:var(--gd);line-height:1.2;margin-bottom:.25rem}
+.dom-sub{font-size:.85rem;color:var(--muted);font-style:italic}
+.dom-ecs{font-size:.72rem;color:var(--gm);margin-top:.4rem;padding:.35rem .75rem;background:var(--gp);border-radius:6px;display:inline-block}
+
+/* QUESTIONS */
+.q-list{margin:1.25rem 0}
+.q-item{margin-bottom:1.1rem;padding:1rem;background:#fff;border:1px solid var(--border);border-radius:var(--rad);transition:border-color .15s}
+.q-item.answered{border-color:var(--gl)}
+.q-text{font-size:.93rem;line-height:1.6;margin-bottom:.75rem;color:var(--ink)}
+.q-num{font-size:.7rem;color:var(--muted);font-weight:500;margin-bottom:.35rem}
+.scale-row{display:flex;gap:4px;flex-wrap:wrap}
+.scale-btn{flex:1;min-width:52px;padding:7px 4px;border:1.5px solid var(--border);border-radius:8px;background:transparent;cursor:pointer;font-family:var(--sans);font-size:.72rem;color:var(--muted);text-align:center;transition:all .15s;line-height:1.3}
+.scale-btn:hover{border-color:var(--gm);color:var(--gd);background:var(--gp)}
+.scale-btn.selected{border-color:var(--gm);background:var(--gm);color:#fff}
+.scale-labels{display:flex;justify-content:space-between;font-size:.65rem;color:var(--muted);margin-top:4px;padding:0 2px}
+
+/* SCORE BAR */
+.score-bar-wrap{margin:.75rem 0 .25rem;background:var(--gp);border-radius:4px;height:6px;overflow:hidden}
+.score-bar-fill{height:100%;background:var(--gm);border-radius:4px;transition:width .4s ease;width:0%}
+.score-text{font-size:.75rem;color:var(--muted);text-align:right}
+
+/* NAV BUTTONS */
+.nav-row{display:flex;justify-content:space-between;align-items:center;margin-top:2rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.btn{padding:10px 22px;border-radius:var(--rad);font-family:var(--sans);font-size:.9rem;cursor:pointer;border:1.5px solid var(--border);background:transparent;color:var(--ink);transition:all .15s}
+.btn:hover{background:var(--gp);border-color:var(--gm)}
+.btn:disabled{opacity:.3;cursor:default;pointer-events:none}
+.btn-primary{background:var(--gm);color:#fff;border-color:var(--gm)}
+.btn-primary:hover{background:var(--gd);border-color:var(--gd)}
+
+/* RESULT */
+.result-wrap{animation:fadeUp .35s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.result-hero{background:var(--gd);color:#fff;border-radius:16px;padding:2rem;text-align:center;margin-bottom:1.5rem}
+.result-title{font-family:var(--serif);font-size:1.8rem;margin-bottom:.5rem}
+.result-sub{font-size:.9rem;opacity:.75;max-width:420px;margin:0 auto}
+
+/* RADAR */
+.radar-wrap{background:#fff;border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem;text-align:center}
+.radar-title{font-size:.75rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;color:var(--amb);margin-bottom:1rem}
+
+/* DOMAIN RESULT CARDS */
+.dom-results{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;margin-bottom:1.5rem}
+.dom-result-card{background:#fff;border:1px solid var(--border);border-radius:var(--rad);overflow:hidden}
+.dom-result-card.kern{border-color:var(--amb);border-width:2px}
+.dom-result-card.actief{border-color:var(--gm)}
+.drc-head{padding:.875rem 1rem .6rem;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.drc-name{font-weight:500;font-size:.9rem;color:var(--gd)}
+.drc-score{font-family:var(--serif);font-size:1.1rem;color:var(--gd)}
+.drc-level{font-size:.65rem;font-weight:500;padding:3px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.06em}
+.level-kern{background:var(--ambl);color:#7a5200}
+.level-actief{background:var(--gp);color:var(--gd)}
+.level-kalm{background:#f1f1ef;color:#888}
+.drc-bar{height:4px;background:var(--gp);margin:0 1rem .875rem}
+.drc-bar-fill{height:100%;border-radius:2px;transition:width .6s ease}
+.drc-body{padding:0 1rem .875rem;font-size:.82rem;color:var(--muted);line-height:1.55;display:none}
+.dom-result-card.expanded .drc-body{display:block}
+.drc-toggle{padding:.5rem 1rem;border-top:1px solid var(--border);font-size:.75rem;color:var(--gm);cursor:pointer;background:none;border-left:none;border-right:none;border-bottom:none;width:100%;text-align:left;font-family:var(--sans)}
+.drc-toggle:hover{background:var(--gp)}
+
+/* TIPS */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:8px;margin-top:.75rem}
+.tip-card{background:var(--gp);border-radius:8px;padding:.75rem;font-size:.8rem;line-height:1.5}
+.tip-icon{font-size:1rem;margin-bottom:4px}
+.tip-title{font-weight:500;color:var(--gd);margin-bottom:3px;font-size:.82rem}
+.tip-text{color:var(--muted);font-size:.78rem}
+
+/* CTA */
+.cta-box{background:var(--gd);color:#fff;border-radius:16px;padding:2rem;text-align:center;margin-top:1.5rem}
+.cta-title{font-family:var(--serif);font-size:1.4rem;margin-bottom:.5rem}
+.cta-sub{font-size:.88rem;opacity:.75;margin-bottom:1.25rem;line-height:1.6}
+.cta-btn{display:inline-block;background:var(--amb);color:#fff;padding:12px 28px;border-radius:var(--rad);font-size:.92rem;font-weight:500;text-decoration:none;border:none;cursor:pointer;transition:background .15s}
+.cta-btn:hover{background:#9a6f2e}
+
+@media(max-width:480px){
+  .nav-tag{display:none}
+  .scale-btn{font-size:.65rem;padding:6px 3px}
+  .dom-results{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<nav class="nav">
+  <div style="display:flex;align-items:baseline">
+    <span class="nav-brand">ECSential</span>
+    <span class="nav-tag" id="t-tag">Where Neurodivergent Minds Find Balance</span>
+  </div>
+  <div class="lang-wrap">
+    <button class="lang-btn active" onclick="setLang('nl')">NL</button>
+    <button class="lang-btn" onclick="setLang('en')">EN</button>
+  </div>
+</nav>
+
+<div class="prog-bar">
+  <div class="prog-inner">
+    <div class="prog-top">
+      <span id="t-prog">Domein 1 van 9</span>
+      <span id="prog-pct">0%</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<header class="hero" id="hero">
+  <div class="hero-badge" id="t-badge">ECSential Profiel</div>
+  <h1 id="t-h1">Jouw persoonlijk <em>ECS-regelprofiel</em></h1>
+  <p class="hero-sub" id="t-hsub">72 vragen · 9 domeinen · Volledig zelfgestuurd · Geen diagnose vereist</p>
+  <div class="hero-pills">
+    <span class="pill" id="t-p1">9 domeinen</span>
+    <span class="pill" id="t-p2">72 vragen</span>
+    <span class="pill" id="t-p3">Wetenschappelijk onderbouwd</span>
+    <span class="pill" id="t-p4">100% gratis</span>
+  </div>
+</header>
+
+<main class="main" id="main-content"></main>
+
+<footer style="background:var(--gd);color:rgba(255,255,255,.45);text-align:center;padding:1.5rem 1rem;font-size:.75rem">
+  <p>ECSential &nbsp;·&nbsp; 2026 &nbsp;·&nbsp; ecsential.com</p>
+  <p style="margin-top:4px;font-size:.68rem">Uitsluitend voor educatieve doeleinden. Geen medisch advies. Versie 1.0</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+var lang = 'nl';
+var currentDomain = 0;
+var answers = {};
+
+var T = {
+  nl:{
+    tag:'Where Neurodivergent Minds Find Balance',
+    badge:'ECSential Profiel',
+    h1:'Jouw persoonlijk <em>ECS-regelprofiel</em>',
+    hsub:'72 vragen · 9 domeinen · Volledig zelfgestuurd · Geen diagnose vereist',
+    p1:'9 domeinen',p2:'72 vragen',p3:'Wetenschappelijk onderbouwd',p4:'100% gratis',
+    prog:function(d){return 'Domein '+(d+1)+' van 9'},
+    scaleLabels:['Nooit','Zelden','Soms','Vaak','Altijd'],
+    prev:'Vorige',next:'Volgende domein',finish:'Bekijk mijn profiel',
+    score:'Score',of:'van',
+    resultTitle:'Jouw ECS-regelprofiel',
+    resultSub:'Op basis van jouw antwoorden op 72 vragen over 9 domeinen.',
+    radarTitle:'Jouw regulatieprofiel',
+    levelKern:'Kerndomein',levelActief:'Actief',levelKalm:'Kalm',
+    levelExpl:{kern:'Score 29-40 · Dit is een kerndomein van jouw regulatiepatroon',actief:'Score 17-28 · Dit domein is herkenbaar aanwezig',kalm:'Score 8-16 · Dit domein vraagt weinig extra energie'},
+    showTips:'Bekijk uitleg en tips',hideTips:'Verberg',
+    ctaTitle:'Wil je dieper gaan?',
+    ctaSub:'De Root & Regulate cursus gaat veel verder. 6 modules, praktische oefeningen, en een community van mensen die begrijpen hoe jouw systeem werkt.',
+    ctaBtn:'Meld je aan voor vroege toegang',
+    restart:'Opnieuw starten',
+    unanswered:'Beantwoord alle vragen in dit domein om verder te gaan.',
+  },
+  en:{
+    tag:'Where Neurodivergent Minds Find Balance',
+    badge:'ECSential Profile',
+    h1:'Your personal <em>ECS regulation profile</em>',
+    hsub:'72 questions · 9 domains · Fully self-guided · No diagnosis required',
+    p1:'9 domains',p2:'72 questions',p3:'Science-backed',p4:'100% free',
+    prog:function(d){return 'Domain '+(d+1)+' of 9'},
+    scaleLabels:['Never','Rarely','Sometimes','Often','Always'],
+    prev:'Previous',next:'Next domain',finish:'View my profile',
+    score:'Score',of:'of',
+    resultTitle:'Your ECS regulation profile',
+    resultSub:'Based on your answers to 72 questions across 9 domains.',
+    radarTitle:'Your regulation profile',
+    levelKern:'Core domain',levelActief:'Active',levelKalm:'Calm',
+    levelExpl:{kern:'Score 29-40 · Core domain of your regulation pattern',actief:'Score 17-28 · This domain is noticeably present',kalm:'Score 8-16 · This domain requires little extra energy'},
+    showTips:'Show explanation and tips',hideTips:'Hide',
+    ctaTitle:'Want to go deeper?',
+    ctaSub:'The Root & Regulate course goes much further. 6 modules, practical exercises, and a community of people who understand how your system works.',
+    ctaBtn:'Sign up for early access',
+    restart:'Start again',
+    unanswered:'Please answer all questions in this domain before continuing.',
+  }
+};
+
+var domains = [
+  {
+    nl:{name:'Sensorische verwerking',sub:'Hoe sterk en hoe gefilterd zintuiglijke informatie binnenkomt',ecs:'CB1 in thalamus & somatosensorische cortex · TRPV1 pijndrempel · PEA',
+    explain:'CB1-receptoren in de thalamus fungeren als filter: ze bepalen welke sensorische informatie doordringt tot de bewuste waarneming. Bij lagere ECS-toon is dit filter minder actief, waardoor meer prikkels ongedempt aankomen. Dit is de neurobiologische verklaring voor verhoogde sensorische gevoeligheid bij autisme, HSP en DCD. Het is geen zwakte, het is een biologisch feit.',
+    tips:[{icon:'🌿',title:'Beweging als filter',text:'20-30 min matige beweging verhoogt anandamide aantoonbaar en helpt het sensorische filter te kalibreren.'},{icon:'🌙',title:'Decompressietijd',text:'Plan bewust hersteltijd na sensorisch belastende situaties. Jouw brein heeft het neurobiologisch nodig.'},{icon:'🎵',title:'Muziek als buffer',text:'Muziek via koptelefoon creëert een beheersbare sensorische omgeving. Dit is actief sensorisch beheer.'},{icon:'🌱',title:'Omega-3 vetzuren',text:'AEA en 2-AG zijn afgeleid van arachidonzuur. Voldoende omega-3 is een van de meest evidence-based manieren om ECS-functie te ondersteunen.'}],
+    qs:['Achtergrondgeluiden die anderen niet lijken op te vallen trekken mijn aandacht en energie.','Na een dag in een drukke omgeving heb ik tijd alleen nodig om bij te komen.','Bepaalde stoffen, texturen of naden in kleding voelen fysiek onprettig of afleidend aan.','Felle verlichting of schermen voelen voor mij snel te intens aan.','Sterke geuren hebben een merkbare invloed op mijn stemming of concentratie.','Aanraking die voor anderen gewoon is, kan voor mij overweldigend zijn.','In een ruimte met veel tegelijkertijd gaande informatie raak ik snel overprikkeld.','Na een prikkellende dag heb ik lichamelijke symptomen die verder gaan dan gewone vermoeidheid.']},
+    en:{name:'Sensory processing',sub:'How strongly and filtered sensory information comes in',ecs:'CB1 in thalamus & somatosensory cortex · TRPV1 pain threshold · PEA',
+    explain:'CB1 receptors in the thalamus act as a filter, determining which sensory information reaches conscious perception. With lower ECS tone, this filter is less active, meaning more stimuli arrive unfiltered. This is the neurobiological explanation for heightened sensory sensitivity in autism, HSP and DCD. It is not a weakness, it is a biological fact.',
+    tips:[{icon:'🌿',title:'Movement as filter',text:'20-30 min of moderate exercise demonstrably increases anandamide and helps recalibrate the sensory filter.'},{icon:'🌙',title:'Decompression time',text:'Consciously plan recovery time after sensory-intensive situations. Your brain neurobiologically needs it.'},{icon:'🎵',title:'Music as buffer',text:'Music via headphones creates a manageable sensory environment. This is active sensory management.'},{icon:'🌱',title:'Omega-3 fatty acids',text:'AEA and 2-AG are derived from arachidonic acid. Sufficient omega-3 is one of the most evidence-based ways to support ECS function.'}],
+    qs:['Background noises that others don\'t seem to notice pull my attention and energy.','After a busy day I need time alone to recover.','Certain fabrics, textures, or clothing seams feel physically unpleasant or distracting.','Bright lighting or screens quickly feel too intense for me.','Strong scents have a noticeable impact on my mood or concentration.','Touch that is normal for others can feel overwhelming for me.','In a room with lots of simultaneous information I become easily overstimulated.','After an overstimulating day I have physical symptoms beyond normal tiredness.']}
+  },
+  {
+    nl:{name:'Emotieregulatie & angst',sub:'De intensiteit, duur en extinctie van emotionele reacties',ecs:'AEA-CB1 in basolaterale amygdala · FAAH-activiteit · angstextinctie',
+    explain:'Anandamide in de basolaterale amygdala moduleert angstextinctie: het vermogen om te leren dat iets wat eerder bedreigend was nu veilig is. Stress activeert FAAH, wat anandamide afbreekt, waardoor de amygdala hyperreactief wordt. Bij mensen met autisme zijn AEA-spiegels aantoonbaar lager. Dit is biologie, geen karakter.',
+    tips:[{icon:'🧘',title:'Ademhaling',text:'Slow breathing (4-7-8) activeert de parasympathicus en vergroot prefrontale inhibitie van de amygdala. Dit verhoogt de ECS-bufferzone voor emotionele reacties.'},{icon:'✏️',title:'Schrijven',text:'Expressief schrijven heeft in meta-analyses consistente effecten op emotionele regulatie en verlaagt cortisol, wat FAAH activeert.'},{icon:'🏃',title:'Beweging',text:'Aerobe beweging reduceert FAAH-activiteit en verhoogt anandamide. Runner\'s high is waarschijnlijk grotendeels een ECS-fenomeen.'},{icon:'🌿',title:'Bewust stimulantia',text:'Cafeïne en nicotine verhogen cortisol op termijn, wat FAAH activeert. Als je ze al gebruikt: bewust en niet als primaire emotieregulator.'}],
+    qs:['Emoties voelen voor mij intenser aan dan ze voor mensen om me heen lijken te zijn.','Als ik eenmaal in een stressvolle staat zit, kost het me lang voordat ik weer in balans ben.','Ik heb de neiging om te blijven hangen in zorggedachten, ook als ik dat bewust wil stoppen.','Kleine onverwachte veranderingen kunnen een sterke fysieke of emotionele reactie uitlokken.','Ik merk dat ik lang nabreuw over sociale interacties.','Er zijn situaties waarbij mijn emotionele reactie groter is dan ik zelf logisch vind.','Het kost mij aanzienlijk meer moeite om negatieve ervaringen los te laten dan ik zou willen.','Ik gebruik bewust gedrag om mijn emotionele toestand te reguleren.']},
+    en:{name:'Emotion regulation & anxiety',sub:'The intensity, duration and extinction of emotional reactions',ecs:'AEA-CB1 in basolateral amygdala · FAAH activity · fear extinction',
+    explain:'Anandamide in the basolateral amygdala modulates fear extinction: the ability to learn that something previously threatening is now safe. Stress activates FAAH, which breaks down anandamide, making the amygdala hyperreactive. In autistic people, AEA levels are demonstrably lower. This is biology, not character.',
+    tips:[{icon:'🧘',title:'Breathing',text:'Slow breathing (4-7-8) activates the parasympathetic system and increases prefrontal inhibition of the amygdala, raising the ECS buffer zone for emotional reactions.'},{icon:'✏️',title:'Writing',text:'Expressive writing has consistent effects on emotional regulation in meta-analyses and lowers cortisol, which activates FAAH.'},{icon:'🏃',title:'Movement',text:'Aerobic exercise reduces FAAH activity and increases anandamide. Runner\'s high is likely largely an ECS phenomenon.'},{icon:'🌿',title:'Mindful stimulants',text:'Caffeine and nicotine increase cortisol over time, activating FAAH. If you already use them: consciously and not as primary emotion regulator.'}],
+    qs:['Emotions feel more intense for me than they seem to be for people around me.','Once I am in a stressed or anxious state, it takes me a long time to get back in balance.','I tend to get stuck in worried thoughts, even when I consciously want to stop.','Small unexpected changes can trigger a strong physical or emotional reaction.','I notice I ruminate for a long time about social interactions.','There are situations where my emotional reaction is larger than I myself find logical.','It costs me considerably more effort to let go of negative experiences than I would like.','I consciously use behaviour or activities to regulate my emotional state.']},
+  },
+  {
+    nl:{name:'Aandacht & energieregulatie',sub:'De regulatie van focus, arousal en taakbesturing',ecs:'CB1 in prefrontale cortex & striatum · dopamine-ECS koppeling · TRPV1-arousal',
+    explain:'CB1-receptoren op neuronen in de prefrontale cortex en het striatum moduleren indirect de dopaminetransmissie. Bij ADHD-profielen is de CB1-functie in het striatum anders geconfigureerd. Hyperfocus is geen superkracht én geen stoornis: het is je brein dat dopamine zoekt waar het beschikbaar is.',
+    tips:[{icon:'⏱️',title:'Timeboxing',text:'Werk in tijdboxen van 25-45 min met expliciete pauzes. Stel externe timers in, je intern tijdbesef is neurobiologisch minder betrouwbaar.'},{icon:'🏋️',title:'Beweging voor focus',text:'20 min intensieve beweging voor cognitieve taken verhoogt dopamine en anandamide. Meer effect dan cafeïne, langer aanhoudend.'},{icon:'🎯',title:'Omgeving ontwerpen',text:'Je ECS kan niet harder werken door wilskracht. Pas je omgeving aan: verwijder afleidende prikkels, maak de gewenste actie de makkelijkste actie.'},{icon:'🌱',title:'Koude douche',text:'Koude waterblootstelling verhoogt norepinefrine (tot 300%) en anandamide. Begin met 30 seconden aan het eind van een gewone douche.'}],
+    qs:['Als iets mij volledig interesseert, verlies ik het besef van tijd en omgeving (hyperfocus).','Voor taken die ik saai of zinloos vind, kan ik nauwelijks beginnen ook als de deadline nabij is.','Ik wissel regelmatig tussen periodes van hoge productiviteit en momenten van volledige mentale uitputting.','Mijn concentratie wordt sterk beïnvloed door interne of externe prikkels.','Ik heb meer moeite met het afronden van taken dan met het starten ervan.','De hoeveelheid energie die alledaagse taken van mij vragen voelt onevenredig groot.','Ik functioneer beter onder druk of sterke persoonlijke interesse dan in routinewerk.','Ik heb moeite met het starten van taken die ik niet intern gemotiveerd ben om te doen.']},
+    en:{name:'Attention & energy regulation',sub:'The regulation of focus, arousal and task management',ecs:'CB1 in prefrontal cortex & striatum · dopamine-ECS coupling · TRPV1-arousal',
+    explain:'CB1 receptors on neurons in the prefrontal cortex and striatum indirectly modulate dopamine transmission. In ADHD profiles, CB1 function in the striatum is differently configured. Hyperfocus is neither a superpower nor a disorder: it is your brain seeking dopamine where it is available.',
+    tips:[{icon:'⏱️',title:'Timeboxing',text:'Work in time boxes of 25-45 min with explicit breaks. Use external timers, your internal sense of time is neurobiologically less reliable.'},{icon:'🏋️',title:'Movement for focus',text:'20 min of intensive movement before cognitive tasks increases dopamine and anandamide. More effective than caffeine, longer lasting.'},{icon:'🎯',title:'Design your environment',text:'Your ECS cannot work harder through willpower. Adapt your environment: remove distracting stimuli, make the desired action the easiest action.'},{icon:'🌱',title:'Cold shower',text:'Cold water exposure increases norepinephrine (up to 300%) and anandamide. Start with 30 seconds at the end of a normal shower.'}],
+    qs:['When something fully interests me, I lose track of time and surroundings (hyperfocus).','For tasks I find boring or pointless, I can barely start even when the deadline is near.','I regularly alternate between periods of high productivity and moments of complete mental exhaustion.','My concentration is strongly influenced by internal or external stimuli.','I have more difficulty finishing tasks than starting them.','The amount of energy ordinary tasks require of me feels disproportionately large.','I function better under pressure or strong personal interest than in routine work.','I struggle to start tasks I am not internally motivated to do.']}
+  },
+  {
+    nl:{name:'Slaap & herstel',sub:'Slaapkwaliteit, ritme en herstelbehoefte',ecs:'AEA slow-wave sleep · circadiaan ritme · FAAH bij chronische stress',
+    explain:'Anandamide bevordert aantoonbaar slow-wave sleep (diepe slaap) via CB1-receptoren in de hypothalamus. FAAH-activiteit neemt toe bij chronische stress, wat anandamide afbreekt en de slaap verstoort. Bij autisme heeft tot 80% slaapproblemen. Vertraagd slaapfasetijdstip bij ADHD is neurobiologisch verklaarbaar. Dit is geen slechte discipline, het is een ander circadiaan ritme.',
+    tips:[{icon:'☀️',title:'Ochtendlicht',text:'Helder licht binnen 30 min na opstaan anchors je circadiaan ritme. Dit verlaagt cortisol en helpt FAAH-activiteit te normaliseren.'},{icon:'📵',title:'Schermgrens',text:'Blauw licht remt melatonine. Een schermloos uur voor slaap is evidence-based, niet lifestyle-advies. Specifiek bij neurodivergente mensen groter effect.'},{icon:'🌡️',title:'Temperatuurregulatie',text:'Een warme douche 60-90 min voor slaap versnelt het afkoelingsproces dat bij inslapen hoort. CB1 in de hypothalamus reguleert thermoregulatie en slaap via dezelfde route.'},{icon:'🌿',title:'Magnesium glycinaat',text:'Magnesium ondersteunt GABA-transmissie en heeft een mild slaapverbeterend effect. Een van de non-cannabis supplementen met het sterkste evidence-base voor slaap.'}],
+    qs:['Mijn slaapritme wijkt significant af van wat sociaal als normaal geldt (later inslapen, later opstaan).','Ik heb moeite met inslapen doordat mijn gedachten of mijn lichaam niet tot rust komen.','Na een volle of sociale dag voel ik me uitgeput op een manier die verder gaat dan normale vermoeidheid.','Ik slaap soms veel uren maar sta toch niet uitgerust op.','Na een periode van intense inspanning heb ik meerdere dagen nodig om te herstellen.','Mijn energieniveau gedurende de dag is onvoorspelbaar, ook wanneer ik voldoende geslapen heb.','Ik slaap significant beter in een bekende, voorspelbare omgeving dan op een nieuwe locatie.','Mijn herstelbehoeftes worden door mensen in mijn omgeving niet altijd begrepen.']},
+    en:{name:'Sleep & recovery',sub:'Sleep quality, rhythm and recovery needs',ecs:'AEA slow-wave sleep · circadian rhythm · FAAH under chronic stress',
+    explain:'Anandamide demonstrably promotes slow-wave sleep (deep sleep) via CB1 receptors in the hypothalamus. FAAH activity increases under chronic stress, breaking down anandamide and disturbing sleep. In autism, up to 80% have sleep problems. Delayed sleep phase in ADHD is neurobiologically explainable. This is not poor discipline, it is a different circadian rhythm.',
+    tips:[{icon:'☀️',title:'Morning light',text:'Bright light within 30 min of waking anchors your circadian rhythm. This lowers cortisol and helps normalise FAAH activity.'},{icon:'📵',title:'Screen boundary',text:'Blue light suppresses melatonin. A screen-free hour before sleep is evidence-based, not lifestyle advice. Especially effective for neurodivergent people.'},{icon:'🌡️',title:'Temperature regulation',text:'A warm shower 60-90 min before sleep accelerates the cooling process that accompanies falling asleep. CB1 in the hypothalamus regulates thermoregulation and sleep via the same pathway.'},{icon:'🌿',title:'Magnesium glycinate',text:'Magnesium supports GABA transmission and has a mild sleep-improving effect. One of the non-cannabis supplements with the strongest evidence base for sleep.'}],
+    qs:['My sleep rhythm deviates significantly from what is socially considered normal (falling asleep later, waking later).','I have difficulty falling asleep because my thoughts or body cannot settle.','After a full or social day I feel exhausted in a way that goes beyond normal tiredness.','I sometimes sleep many hours but still wake up unrefreshed.','After a period of intense exertion I need several days to recover.','My energy level during the day is unpredictable even when I have slept enough.','I sleep significantly better in a familiar, predictable environment than in a new location.','My recovery needs are not always understood or taken seriously by people around me.']}
+  },
+  {
+    nl:{name:'Lichaamsbewustzijn & pijn',sub:'Interoceptie, pijngevoeligheid en lichamelijke signalen',ecs:'TRPV1 nociceptie · CB1/CB2 pijnmodulatie · PEA/OEA · interoceptieve insula',
+    explain:'TRPV1-kanalen bepalen de pijndrempel in sensorische neuronen. PEA moduleert chronische pijn en ontsteking. Interoceptie is gerelateerd aan insula-activatie, een hersengebied dat sterk verbonden is aan CB1-receptordichtheid. Veel neurodivergente mensen hebben alexithymia, deels biologisch verklaarbaar via dit systeem.',
+    tips:[{icon:'🤸',title:'Beweging als pijnmodulator',text:'CB1 en CB2 moduleren pijntransmissie op spinaal niveau. Aerobe beweging verhoogt de pijndrempel via het ECS.'},{icon:'🧘',title:'Bodyscanning',text:'Geleide bodyscan-meditatie traint interoceptieve nauwkeurigheid. Dit verbetert over tijd de insula-activatie en helpt stress eerder te herkennen.'},{icon:'🌿',title:'PEA-supplementatie',text:'Palmitoylethanolamide is een ECS-verwant molecuul met anti-inflammatoire en pijnmodulerende eigenschappen, zonder psychoactief effect.'},{icon:'❄️',title:'Contrast-therapie',text:'Afwisselend warm-koud moduleert ontstekingsresponsen via CB2-paden en verhoogt AEA. Meetbare entstekingsremmende werking bij chronische pijn.'}],
+    qs:['Ik merk lichamelijke signalen van stress soms pas op als ze al hevig zijn.','Ik ben gevoeliger voor pijn dan mensen om me heen lijken te zijn voor vergelijkbare situaties.','Ik heb moeite met het onderscheiden van wat lichamelijke sensaties betekenen (honger vs angst).','Ik heb chronische spanning in bepaalde delen van mijn lichaam die samenhangt met stress.','Lichamelijke prikkels als temperatuur of druk komen intenser bij me aan dan ik zou verwachten.','Ik voel mij fysiek snel ongemakkelijk in omgevingen die niet comfortabel voor mij zijn.','Ik negeer soms lichamelijke signalen omdat ik niet goed weet wat ze betekenen.','Chronische pijn, hoofdpijn of terugkerende lichamelijke klachten zijn een terugkerend thema voor mij.']},
+    en:{name:'Body awareness & pain',sub:'Interoception, pain sensitivity and physical signals',ecs:'TRPV1 nociception · CB1/CB2 pain modulation · PEA/OEA · interoceptive insula',
+    explain:'TRPV1 channels determine the pain threshold in sensory neurons. PEA modulates chronic pain and inflammation. Interoception is related to insula activation, a brain area strongly connected to CB1 receptor density. Many neurodivergent people have alexithymia, partly biologically explainable through this system.',
+    tips:[{icon:'🤸',title:'Movement as pain modulator',text:'CB1 and CB2 modulate pain transmission at spinal level. Aerobic exercise raises the pain threshold through the ECS.'},{icon:'🧘',title:'Body scanning',text:'Guided body scan meditation trains interoceptive accuracy. Over time this improves insula activation and helps recognise stress earlier.'},{icon:'🌿',title:'PEA supplementation',text:'Palmitoylethanolamide is an ECS-related molecule with anti-inflammatory and pain-modulating properties, without psychoactive effect.'},{icon:'❄️',title:'Contrast therapy',text:'Alternating hot-cold modulates inflammatory responses via CB2 pathways and increases AEA. Measurable anti-inflammatory effect for chronic pain.'}],
+    qs:['I sometimes only notice physical stress signals when they are already intense.','I am more sensitive to pain than people around me seem to be in comparable situations.','I have difficulty distinguishing what physical sensations mean (hunger vs anxiety).','I have chronic tension in certain parts of my body that correlates with stress.','Physical stimuli like temperature or pressure reach me more intensely than I would expect.','I quickly feel physically uncomfortable in environments that are not comfortable for me.','I sometimes ignore physical signals because I do not know what they mean.','Chronic pain, headaches, or recurring physical complaints are a recurring theme for me.']}
+  },
+  {
+    nl:{name:'Darm-breinverbinding',sub:'Buikgevoel, spijsvertering en de darm als tweede brein',ecs:'CB1 in enterisch zenuwstelsel · CB2 bij darmontstekingen · vaguszenuw · microbioom',
+    explain:'CB1-receptoren zijn aanwezig in alle klassen van cholinerge neuronen in het enterisch zenuwstelsel. De darm-breinconnectie via de vaguszenuw is bidirectioneel: stress verstoort de darm, en een verstoorde darm verhoogt stress- en angstreactiviteit. CNR1-genvarianten zijn geassocieerd met prikkelbare darm.',
+    tips:[{icon:'🥗',title:'Gefermenteerde voeding',text:'Probiotica en gefermenteerde voeding beïnvloeden de microbioom-ECS-as. Kortketenige vetzuren van darmbacteriën moduleren ECS-activiteit.'},{icon:'🧘',title:'Vaguszenuwactivering',text:'Langzaam neuriën, koud water in het gezicht, gargling, diepe ademhaling activeren de vaguszenuw en verlagen stressinput op de darm.'},{icon:'🌿',title:'Prebiotica',text:'Vezelrijke voeding voedt gunstige darmbacteriën. Korte-keten vetzuren moduleren CB2-receptorexpressie in het darmsysteem.'},{icon:'🌙',title:'Eetritme',text:'Consistent eetritme (voorspelbaar, niet per se gezond) kalmeert de darm-ECS-as. Onregelmatig eten verstoort de circadiaan CB1-expressie in de darm.'}],
+    qs:['Mijn buik reageert merkbaar op stress of spanning (knijpen, misselijkheid, krampen).','Ik heb een buikgevoel dat ik als betrouwbare informatiebron gebruik, ook als ik het niet kan rationaliseren.','Ik heb terugkerende maagdarmklachten die geen duidelijke medische verklaring hebben gekregen.','Mijn eetpatroon is sterk verbonden met mijn emotionele toestand.','Bepaalde voedingsmiddelen hebben een merkbaar effect op mijn stemming, energie of focus.','Na sociaal intensieve situaties merk ik dat mijn spijsvertering verandert.','Ik heb overmatige honger of gebrek aan eetlust als lichamelijke uitingsvormen van stress.','Mijn darmen zijn gevoelig voor veranderingen in routine, reizen of slaaptekort.']},
+    en:{name:'Gut-brain connection',sub:'Gut feeling, digestion and the gut as second brain',ecs:'CB1 in enteric nervous system · CB2 in gut inflammation · vagus nerve · microbiome',
+    explain:'CB1 receptors are present in all classes of cholinergic neurons in the enteric nervous system. The gut-brain connection via the vagus nerve is bidirectional: stress disturbs the gut, and a disturbed gut increases stress and anxiety reactivity. CNR1 gene variants are associated with irritable bowel syndrome.',
+    tips:[{icon:'🥗',title:'Fermented foods',text:'Probiotics and fermented foods influence the microbiome-ECS axis. Short-chain fatty acids from gut bacteria modulate ECS activity.'},{icon:'🧘',title:'Vagus nerve activation',text:'Slow humming, cold water on the face, gargling, deep breathing activate the vagus nerve and reduce stress input to the gut.'},{icon:'🌿',title:'Prebiotics',text:'Fibre-rich foods feed beneficial gut bacteria. Short-chain fatty acids modulate CB2 receptor expression in the gut system.'},{icon:'🌙',title:'Meal rhythm',text:'Consistent meal rhythm (predictable, not necessarily healthy) calms the gut-ECS axis. Irregular eating disrupts circadian CB1 expression in the gut.'}],
+    qs:['My stomach noticeably reacts to stress or tension (tightening, nausea, cramps).','I have a gut feeling that I use as a reliable source of information, even when I cannot rationalise it.','I have recurring gastrointestinal complaints that have not received a clear medical explanation.','My eating pattern is strongly connected to my emotional state.','Certain foods have a noticeable effect on my mood, energy or focus.','After socially intensive situations I notice my digestion changes.','I experience excessive hunger or lack of appetite as physical expressions of stress.','My intestines are sensitive to changes in routine, travel or sleep deprivation.']}
+  },
+  {
+    nl:{name:'Sociale energie & verbinding',sub:'De energiekosten van contact, aanpassing en verbinding',ecs:'ECS-oxytocine interactie · nucleus accumbens sociale beloning · 2-AG sociale play',
+    explain:'Het ECS en oxytocine werken samen in de regulatie van sociaal gedrag. 2-AG in de nucleus accumbens moduleert de beloningswaarde van sociale interactie. Bij autisme zijn AEA-spiegels lager, wat samengaat met minder automatische sociale beloningsactivatie. Masking vergroot de ECS-belasting doordat het chronische stress en FAAH-activering onderhoudt.',
+    tips:[{icon:'🤲',title:'Grenzen als energiebeheer',text:'Sociale grenzen stellen is geen egocentriciteit, het is ECS-beheer. Consistente afspraken over hersteltijd zijn neurobiologisch noodzakelijk.'},{icon:'📝',title:'Masking reduceren',text:'Masking verhoogt cortisol en FAAH-activiteit. Omgevingen zoeken waar masken niet nodig is, verlaagt direct de ECS-belasting.'},{icon:'🎮',title:'Parallel spelen',text:'Samen iets doen naast elkaar is neurobiologisch minder kostbaar dan face-to-face praten. Erken dat dit een valide verbindingsvorm is.'},{icon:'🌿',title:'Aanraking',text:'Veilige aanraking verhoogt oxytocine en beïnvloedt via de oxytocine-ECS-interactie de sociale beloningsgevoeligheid.'}],
+    qs:['Sociale interactie kost mij consistent meer energie dan het andere mensen lijkt te kosten.','Ik pas mijn gedrag en communicatiestijl aan aan de omgeving, ook als dat vermoeiend is.','Ik voel de stemming en emoties van anderen sterk aan, ook als zij er niets over zeggen.','Na sociaal contact heb ik tijd nodig om te decomprimeren voordat ik aan iets anders kan beginnen.','Ik heb een sterke voorkeur voor diepgaande één-op-één contacten boven groepsinteracties.','Ik kan sociaal goed functioneren terwijl ik van binnen heel anders voel dan ik uitstraal.','Situaties waarbij ik mezelf moet zijn in een onbekende of grote groep kosten mij extra veel energie.','Na een drukke sociale periode heb ik behoefte aan aanzienlijk meer hersteltijd dan mijn omgeving verwacht.']},
+    en:{name:'Social energy & connection',sub:'The energy costs of contact, adaptation and connection',ecs:'ECS-oxytocin interaction · nucleus accumbens social reward · 2-AG social play',
+    explain:'The ECS and oxytocin work together in regulating social behaviour. 2-AG in the nucleus accumbens modulates the reward value of social interaction. In autism, AEA levels are lower, correlating with less automatic social reward activation. Masking increases ECS load by maintaining chronic stress and FAAH activation.',
+    tips:[{icon:'🤲',title:'Boundaries as energy management',text:'Setting social boundaries is not selfishness, it is ECS management. Consistent agreements about recovery time are neurobiologically necessary.'},{icon:'📝',title:'Reduce masking',text:'Masking increases cortisol and FAAH activity. Finding environments where masking is unnecessary directly reduces ECS load.'},{icon:'🎮',title:'Parallel play',text:'Doing something together side by side is neurobiologically less costly than face-to-face conversation. Recognise this as a valid form of connection.'},{icon:'🌿',title:'Touch',text:'Safe touch increases oxytocin and through the oxytocin-ECS interaction influences social reward sensitivity.'}],
+    qs:['Social interaction consistently costs me more energy than it seems to cost other people.','I adapt my behaviour and communication style to the environment, even when that is tiring.','I strongly sense the mood and emotions of others, even when they say nothing about it.','After social contact I need time to decompress before I can start something else.','I have a strong preference for in-depth one-on-one contact over group interactions.','I can function well socially while feeling very differently on the inside.','Situations where I must be myself in an unfamiliar or large group cost me considerably more energy.','After a busy social period I need significantly more recovery time than my environment expects.']}
+  },
+  {
+    nl:{name:'Stressregulatie & HPA-as',sub:'De aanzetdrempel en herstelsnelheid van jouw stressrespons',ecs:'ECS-HPA-as modulatie · prefrontale cortex · amygdala · cortisol-ECS wisselwerking',
+    explain:'Het ECS remt de HPA-as via CB1-receptoren in de prefrontale cortex, amygdala en hypothalamus. Dit is een van de best gedocumenteerde ECS-functies. Bij chronische stress raakt dit remmingssysteem uitgeput. Dit verklaart CECD (Clinical Endocannabinoid Deficiency) en de clustering van stressgerelateerde aandoeningen bij neurodivergente mensen.',
+    tips:[{icon:'🏃',title:'Zone 2 beweging',text:'Matig intensieve aerobe beweging is de evidence-based methode om HPA-hyperreactiviteit te herstellen. Verlaagt het basis cortisolniveau en verhoogt AEA-productie.'},{icon:'😴',title:'Herstel prioriteren',text:'Slaaptekort verhoogt cortisol en FAAH-activiteit. Nachtrust is de eenvoudigste manier om de ECS-HPA-buffer te herstellen.'},{icon:'🌊',title:'Natuur',text:'Blootstelling aan groen en water verlaagt cortisolniveaus meetbaar binnen 20 minuten via het ECS. Geen therapie nodig: gewoon buiten zijn.'},{icon:'🎵',title:'Muziek & ritme',text:'Repetitieve ritmische muziek heeft een directe parasympathische activerende werking en verlaagt cortisolniveaus.'}],
+    qs:['Mijn stressrespons lijkt snel aan te slaan, ook bij situaties die anderen als weinig bedreigend ervaren.','Als ik gestresst ben, duurt het lang voordat mijn lichaam en geest weer in ruststand zijn.','Ik ervaar regelmatig een verhoogd basisniveau van alertheid, zelfs in veilige situaties.','Mijn lichaam reageert op stress met fysieke symptomen (hartkloppingen, zweten, trillen).','Ik ben gevoelig voor de cumulatieve opbouw van stress: kleine stapelingen raken mij disproportioneel.','Positieve gebeurtenissen (feestjes, vakanties) kunnen voor mij ook stressvol aanvoelen.','Ik heb de neiging om in overlevingsmodus te schieten (alles controleren of juist vermijden) bij onzekerheid.','Periodes van hoog chronisch stress laten merkbare sporen na en ik herstel niet volledig.']},
+    en:{name:'Stress regulation & HPA axis',sub:'The trigger threshold and recovery speed of your stress response',ecs:'ECS-HPA axis modulation · prefrontal cortex · amygdala · cortisol-ECS interaction',
+    explain:'The ECS inhibits the HPA axis via CB1 receptors in the prefrontal cortex, amygdala and hypothalamus. This is one of the best documented ECS functions. Under chronic stress this inhibitory system becomes depleted. This explains CECD (Clinical Endocannabinoid Deficiency) and the clustering of stress-related conditions in neurodivergent people.',
+    tips:[{icon:'🏃',title:'Zone 2 movement',text:'Moderate intensity aerobic exercise is the evidence-based method to restore HPA hyperreactivity. Lowers baseline cortisol and increases AEA production.'},{icon:'😴',title:'Prioritise recovery',text:'Sleep deprivation increases cortisol and FAAH activity. Night rest is the simplest way to restore the ECS-HPA buffer.'},{icon:'🌊',title:'Nature',text:'Exposure to greenery and water measurably lowers cortisol levels within 20 minutes via the ECS. No therapy needed: simply being outside.'},{icon:'🎵',title:'Music & rhythm',text:'Repetitive rhythmic music has a direct parasympathetic activating effect and lowers cortisol levels.'}],
+    qs:['My stress response seems to trigger quickly, even in situations others experience as minimally threatening.','Once stressed, it takes a long time before my body and mind return to rest.','I regularly experience an elevated baseline level of alertness, even in safe situations.','My body reacts to stress with physical symptoms (palpitations, sweating, trembling).','I am sensitive to the cumulative build-up of stress: small stressors affect me disproportionately.','Positive events (parties, holidays) can also feel stressful for me.','I tend to go into survival mode (controlling everything or avoiding) under uncertainty.','Periods of high chronic stress leave noticeable traces and I do not fully recover.']}
+  },
+  {
+    nl:{name:'Motivatie & beloning',sub:'De werking van jouw beloningssysteem en intrinsieke motivatie',ecs:'CB1 in nucleus accumbens & VTA · dopamine-ECS koppeling · D2/D3',
+    explain:'CB1-receptoren in de nucleus accumbens en het ventral tegmental area moduleren dopaminetransmissie. Bij ADHD is de D2/D3-dopaminereceptorgevoeligheid verminderd, wat betekent dat normale beloningen minder impact hebben. Dit verklaart de alles-of-niets motivatiedynamiek: bij dingen die het ECS-dopaminesysteem sterk activeren werkt het prima, bij andere dingen nauwelijks.',
+    tips:[{icon:'🎯',title:'Betekenis als dopaminebron',text:'Het neurodivergente beloningssysteem reageert op relevantie en impact. Formuleer taken als: "Ik doe dit omdat..." in plaats van "Ik moet dit...".'},{icon:'🎵',title:'Muziek als motivatietool',text:'Muziek activeert het beloningssysteem direct. Muziek die kippenvel geeft verhoogt dopamine in het striatum. Gebruik dit als aanzetmechanisme.'},{icon:'🏋️',title:'Beweging als dopaminereset',text:'Intensieve beweging verhoogt dopamine in de prefrontale cortex en het striatum. Een van de weinige non-farmacologische interventies vergelijkbaar met lage doses stimulantia.'},{icon:'🌿',title:'Dopaminetroggen vermijden',text:'Passief scrollen en binge-kijken verlagen dopaminegevoeligheid over tijd. Dit is neurochemisch, niet moreel.'}],
+    qs:['Ik ben bijna alleen gemotiveerd als iets mij intrinsiek interesseert of directe beloning biedt.','Taken zonder direct zichtbaar resultaat zijn voor mij extreem moeilijk om vol te houden.','Ik heb last van uitgestelde beloningsproblemen: geld of beloftes op de lange termijn motiveren mij minder.','Ik zoek actief naar stimulerende ervaringen als mijn omgeving te weinig prikkels biedt.','Wanneer ik iets doe wat mij niet interesseert, voel ik weerstand die meer is dan luiheid, het voelt als een blokkade.','Ik heb momenten waarop niets mij kan motiveren of enthousiasmeren.','Ik gebruik stimulerende middelen (koffie, nicotine, beweging, muziek) om mezelf op gang te helpen.','Complimenten of externe beloningen hebben weinig effect als de interne interesse ontbreekt.']},
+    en:{name:'Motivation & reward',sub:'The functioning of your reward system and intrinsic motivation',ecs:'CB1 in nucleus accumbens & VTA · dopamine-ECS coupling · D2/D3',
+    explain:'CB1 receptors in the nucleus accumbens and the ventral tegmental area modulate dopamine transmission. In ADHD, D2/D3 dopamine receptor sensitivity is reduced, meaning normal rewards have less impact. This explains the all-or-nothing motivation dynamic: for things that strongly activate the ECS-dopamine system it works well, for others barely at all.',
+    tips:[{icon:'🎯',title:'Meaning as dopamine source',text:'The neurodivergent reward system responds to relevance and impact. Formulate tasks as "I do this because..." rather than "I have to do this...".'},{icon:'🎵',title:'Music as motivation tool',text:'Music activates the reward system directly. Music that gives goosebumps increases dopamine in the striatum. Use this as a starting mechanism.'},{icon:'🏋️',title:'Movement as dopamine reset',text:'Intensive movement increases dopamine in the prefrontal cortex and striatum. One of the few non-pharmacological interventions comparable to low doses of stimulants.'},{icon:'🌿',title:'Avoid dopamine troughs',text:'Passive scrolling and binge-watching lower dopamine sensitivity over time. This is neurochemical, not moral.'}],
+    qs:['I am almost only motivated when something intrinsically interests me or offers immediate reward.','Tasks without direct visible results are extremely difficult for me to sustain.','I struggle with delayed reward: money or long-term promises motivate me less than immediate results.','I actively seek stimulating experiences when my environment offers too little stimulation.','When I do something that does not interest me, I feel resistance that is more than laziness, it feels like a physical block.','I have moments when nothing can motivate or enthuse me.','I use stimulating substances (coffee, nicotine, movement, music) to get myself going.','Compliments or external rewards have little effect when internal interest is absent.']}
+  }
+];
+
+function setLang(l){
+  lang=l;
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.toggle('active',b.textContent.trim()===l.toUpperCase())});
+  var t=T[l];
+  document.getElementById('t-tag').textContent=t.tag;
+  document.getElementById('t-badge').textContent=t.badge;
+  document.getElementById('t-h1').innerHTML=t.h1;
+  document.getElementById('t-hsub').textContent=t.hsub;
+  document.getElementById('t-p1').textContent=t.p1;
+  document.getElementById('t-p2').textContent=t.p2;
+  document.getElementById('t-p3').textContent=t.p3;
+  document.getElementById('t-p4').textContent=t.p4;
+  if(currentDomain<domains.length) renderDomain(false);
+}
+
+function updateProgress(){
+  var pct=Math.round((currentDomain/domains.length)*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('prog-pct').textContent=pct+'%';
+  document.getElementById('t-prog').textContent=currentDomain<domains.length?T[lang].prog(currentDomain):'100%';
+}
+
+function getDomainScore(di){
+  var total=0;
+  for(var q=0;q<8;q++){
+    var key=di+'_'+q;
+    total+=(answers[key]||0);
+  }
+  return total;
+}
+
+function getLevel(score){
+  if(score>=29) return 'kern';
+  if(score>=17) return 'actief';
+  return 'kalm';
+}
+
+function renderDomain(animate){
+  updateProgress();
+  var d=domains[currentDomain];
+  var dl=d[lang];
+  var t=T[lang];
+  var qsHtml='';
+  for(var i=0;i<8;i++){
+    var key=currentDomain+'_'+i;
+    var cur=answers[key]||0;
+    var scaleHtml='';
+    for(var v=1;v<=5;v++){
+      scaleHtml+='<button class="scale-btn'+(cur===v?' selected':'')+'" onclick="setAnswer('+currentDomain+','+i+','+v+')">'+v+'<br><span style="font-size:.6rem">'+t.scaleLabels[v-1]+'</span></button>';
+    }
+    qsHtml+='<div class="q-item'+(cur>0?' answered':'')+'" id="qi-'+i+'">';
+    qsHtml+='<div class="q-num">'+t.score+' '+(i+1)+' '+t.of+' 8</div>';
+    qsHtml+='<div class="q-text">'+dl.qs[i]+'</div>';
+    qsHtml+='<div class="scale-row">'+scaleHtml+'</div>';
+    qsHtml+='</div>';
+  }
+  var score=getDomainScore(currentDomain);
+  var pct=Math.round((score/40)*100);
+  var prevDis=currentDomain===0?'disabled':'';
+  var nextLabel=currentDomain===domains.length-1?t.finish:t.next;
+
+  var html='<div class="'+(animate!==false?'result-wrap':''')+'">';
+  html+='<div class="dom-header">';
+  html+='<div class="dom-badge"><div class="dom-num">'+(currentDomain+1)+'</div>'+t.prog(currentDomain)+'</div>';
+  html+='<div class="dom-title">'+dl.name+'</div>';
+  html+='<div class="dom-sub">'+dl.sub+'</div>';
+  html+='<div class="dom-ecs">ECS: '+dl.ecs+'</div>';
+  html+='</div>';
+  html+='<div class="q-list">'+qsHtml+'</div>';
+  if(score>0){
+    html+='<div class="score-bar-wrap"><div class="score-bar-fill" id="score-bar" style="width:'+pct+'%"></div></div>';
+    html+='<div class="score-text">'+t.score+': '+score+'/40</div>';
+  }
+  html+='<div class="nav-row">';
+  html+='<button class="btn" onclick="goDomain(-1)" '+prevDis+'>'+t.prev+'</button>';
+  html+='<button class="btn btn-primary" id="next-btn" onclick="goDomain(1)" '+(score>0?'':'disabled')+'>'+nextLabel+'</button>';
+  html+='</div></div>';
+  document.getElementById('main-content').innerHTML=html;
+}
+
+function setAnswer(di,qi,val){
+  var key=di+'_'+qi;
+  answers[key]=val;
+  var item=document.getElementById('qi-'+qi);
+  if(item){
+    item.classList.add('answered');
+    item.querySelectorAll('.scale-btn').forEach(function(b,idx){
+      b.classList.toggle('selected',idx+1===val);
+    });
+  }
+  var score=getDomainScore(di);
+  var pct=Math.round((score/40)*100);
+  var bar=document.getElementById('score-bar');
+  if(!bar){
+    var wrap=document.createElement('div');
+    wrap.className='score-bar-wrap';
+    wrap.innerHTML='<div class="score-bar-fill" id="score-bar" style="width:'+pct+'%"></div>';
+    var scoreText=document.createElement('div');
+    scoreText.className='score-text';
+    scoreText.id='score-text-el';
+    var navRow=document.querySelector('.nav-row');
+    navRow.parentNode.insertBefore(wrap,navRow);
+    navRow.parentNode.insertBefore(scoreText,navRow);
+  } else {
+    bar.style.width=pct+'%';
+  }
+  var st=document.getElementById('score-text-el');
+  if(st) st.textContent=T[lang].score+': '+score+'/40';
+  var nb=document.getElementById('next-btn');
+  if(nb) nb.removeAttribute('disabled');
+}
+
+function goDomain(dir){
+  if(dir===1 && currentDomain<domains.length){
+    var score=getDomainScore(currentDomain);
+    if(score===0){alert(T[lang].unanswered);return;}
+  }
+  currentDomain=Math.max(0,Math.min(domains.length,currentDomain+dir));
+  if(currentDomain>=domains.length) renderResults();
+  else { renderDomain(true); window.scrollTo({top:0,behavior:'smooth'}); }
+}
+
+function renderResults(){
+  updateProgress();
+  document.getElementById('prog-fill').style.width='100%';
+  document.getElementById('prog-pct').textContent='100%';
+  document.getElementById('t-prog').textContent='100%';
+  var t=T[lang];
+  var scores=[];
+  var labels=[];
+  for(var i=0;i<9;i++){
+    scores.push(getDomainScore(i));
+    labels.push(domains[i][lang].name);
+  }
+
+  var cardsHtml='';
+  for(var i=0;i<9;i++){
+    var s=scores[i];
+    var lv=getLevel(s);
+    var lvLabel=lv==='kern'?t.levelKern:lv==='actief'?t.levelActief:t.levelKalm;
+    var lvClass='level-'+lv;
+    var barColor=lv==='kern'?'var(--amb)':lv==='actief'?'var(--gm)':'var(--gmt)';
+    var dl=domains[i][lang];
+    var tipsHtml='<div class="tips-grid">';
+    dl.tips.forEach(function(tip){
+      tipsHtml+='<div class="tip-card"><div class="tip-icon">'+tip.icon+'</div><div class="tip-title">'+tip.title+'</div><div class="tip-text">'+tip.text+'</div></div>';
+    });
+    tipsHtml+='</div>';
+    cardsHtml+='<div class="dom-result-card '+lv+'" id="drc-'+i+'">';
+    cardsHtml+='<div class="drc-head"><div><div class="drc-name">'+(i+1)+'. '+dl.name+'</div><div class="drc-level '+lvClass+'">'+lvLabel+'</div></div><div class="drc-score">'+s+'/40</div></div>';
+    cardsHtml+='<div class="drc-bar"><div class="drc-bar-fill" style="width:'+Math.round((s/40)*100)+'%;background:'+barColor+'"></div></div>';
+    cardsHtml+='<div class="drc-body"><p style="font-size:.82rem;line-height:1.6;color:var(--muted);margin-bottom:.75rem">'+dl.explain+'</p>'+tipsHtml+'</div>';
+    cardsHtml+='<button class="drc-toggle" onclick="toggleCard('+i+')">'+t.showTips+' ↓</button>';
+    cardsHtml+='</div>';
+  }
+
+  var html='<div class="result-wrap">';
+  html+='<div class="result-hero"><div class="result-title">'+t.resultTitle+'</div><p class="result-sub">'+t.resultSub+'</p></div>';
+  html+='<div class="radar-wrap"><div class="radar-title">'+t.radarTitle+'</div><canvas id="radar-chart" style="max-height:380px"></canvas></div>';
+  html+='<div class="dom-results">'+cardsHtml+'</div>';
+  html+='<div class="cta-box"><div class="cta-title">'+t.ctaTitle+'</div><p class="cta-sub">'+t.ctaSub+'</p><a href="https://ecsential.com" class="cta-btn">'+t.ctaBtn+'</a></div>';
+  html+='<div style="text-align:center;margin-top:1.5rem"><button class="btn" onclick="restart()">'+t.restart+'</button></div>';
+  html+='</div>';
+  document.getElementById('main-content').innerHTML=html;
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  setTimeout(function(){
+    var ctx=document.getElementById('radar-chart');
+    if(!ctx) return;
+    new Chart(ctx,{
+      type:'radar',
+      data:{
+        labels:labels,
+        datasets:[{
+          label:'',
+          data:scores,
+          backgroundColor:'rgba(45,106,79,0.15)',
+          borderColor:'rgba(45,106,79,0.85)',
+          borderWidth:2,
+          pointBackgroundColor:'rgba(45,106,79,1)',
+          pointRadius:4
+        }]
+      },
+      options:{
+        responsive:true,
+        plugins:{legend:{display:false}},
+        scales:{r:{
+          min:0,max:40,
+          ticks:{stepSize:10,font:{size:10},color:'#888'},
+          pointLabels:{font:{size:11},color:'#1B4332'},
+          grid:{color:'rgba(0,0,0,0.08)'}
+        }}
+      }
+    });
+  },100);
+}
+
+function toggleCard(i){
+  var card=document.getElementById('drc-'+i);
+  var btn=card.querySelector('.drc-toggle');
+  var expanded=card.classList.toggle('expanded');
+  btn.textContent=expanded?T[lang].hideTips+' ↑':T[lang].showTips+' ↓';
+}
+
+function restart(){
+  answers={};
+  currentDomain=0;
+  renderDomain(false);
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+renderDomain(false);
+</script>
+</body>
+</html>
